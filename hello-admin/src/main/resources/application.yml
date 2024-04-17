@@ -1,0 +1,35 @@
+server:
+  port: 11000
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  messages:
+    basename: "classpath:i18n/messages"
+
+mybatis:
+  mapper-locations: [ "classpath*:mapper/**/*Mapper.xml" ]
+  type-aliases-package: "plus.jqm.hello.admin.domain"
+
+logging:
+  file:
+    name: "logs/${spring.application.name}.log"
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS"
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+      max-history: 15
+      total-size-cap: 1GB
+
+springdoc:
+  api-docs:
+    path: "/api-docs"
+#  show-actuator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health"

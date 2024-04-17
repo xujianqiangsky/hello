@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.219.138:3306/admin
+    username: root
+    password: 123456
+  data:
+    redis:
+      host: 192.168.219.138
+      username: xjq
+      password: 123456
+
+logging:
+  group:
+    mybatis: "org.mybatis.spring,plus.jqm.hello.admin.mapper"
+  level:
+    mybatis: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+  endpoint:
+    health:
+      show-details: always
