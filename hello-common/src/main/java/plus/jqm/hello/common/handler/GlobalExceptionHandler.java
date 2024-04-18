@@ -1,7 +1,6 @@
 package plus.jqm.hello.common.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -15,10 +14,9 @@ import plus.jqm.hello.common.util.R;
  * @author xjq
  * @date 2024/04/17
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
     @ExceptionHandler(NoResourceFoundException.class)
     public R<Object> exception(NoResourceFoundException e) {
         String message = MessageSourceUtils.getMessage("resource.notfound");

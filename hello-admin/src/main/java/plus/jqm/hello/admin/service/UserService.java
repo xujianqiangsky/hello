@@ -1,6 +1,7 @@
 package plus.jqm.hello.admin.service;
 
-import plus.jqm.hello.admin.domain.UserVO;
+import com.baomidou.mybatisplus.extension.service.IService;
+import plus.jqm.hello.admin.domain.UserDO;
 
 /**
  * User 服务
@@ -8,8 +9,4 @@ import plus.jqm.hello.admin.domain.UserVO;
  * @author xjq
  * @date 2024/04/16
  */
-public interface UserService {
-    UserVO getUserById(long id);
-
-    UserVO getUserByUsername(String username);
-}
+public interface UserService extends IService<UserDO> {}

@@ -12,7 +12,7 @@ spring:
 
 logging:
   group:
-    mybatis: "org.mybatis.spring,plus.jqm.hello.admin.mapper"
+    mybatis: "plus.jqm.hello.admin.mapper"
   level:
     mybatis: debug
 

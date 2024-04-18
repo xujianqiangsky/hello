@@ -1,4 +1,4 @@
-package plus.jqm.hello.admin.domain;
+package plus.jqm.hello.admin.domain.vo;
 
 import java.io.Serial;
 import java.io.Serializable;

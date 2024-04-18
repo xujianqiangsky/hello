@@ -8,9 +8,14 @@ spring:
   messages:
     basename: "classpath:i18n/messages"
 
-mybatis:
-  mapper-locations: [ "classpath*:mapper/**/*Mapper.xml" ]
-  type-aliases-package: "plus.jqm.hello.admin.domain"
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: assign_id
+      logic-delete-field: deleted
+    banner: false
 
 logging:
   file:

@@ -1,7 +1,6 @@
 package plus.jqm.hello.common.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -12,8 +11,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @author xjq
  * @date 2024/04/16
  */
+@Slf4j
 public class MessageSourceUtils {
-    private static final Logger log = LoggerFactory.getLogger(MessageSourceUtils.class);
     private static final MessageSource messageSource;
 
     static {

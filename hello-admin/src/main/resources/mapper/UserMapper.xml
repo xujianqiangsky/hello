@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plus.jqm.hello.admin.mapper.UserMapper">
-    <resultMap id="userMapper" type="UserDO">
+    <resultMap id="userMapper" type="plus.jqm.hello.admin.domain.UserDO">
         <id column="id" property="id"/>
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
@@ -15,32 +15,14 @@
         <result column="status" property="status"/>
         <result column="login_ip" property="loginIP"/>
         <result column="login_time" property="loginTime"/>
-        <result column="created_by" property="created_by"/>
-        <result column="created_time" property="created_time"/>
-        <result column="updated_by" property="updated_by"/>
-        <result column="updated_time" property="updated_time"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="remark" property="remark"/>
     </resultMap>
     <sql id="userColumn">
         id, username, nickname, gender, password, email, phone_number, avatar, status, login_ip, login_time, created_by,
         created_time, updated_by, updated_time, is_deleted, remark
     </sql>
-
-    <select id="getUserById" resultMap="userMapper">
-        select
-        <include refid="userColumn"/>
-        from user
-        <where>
-            id = #{id}
-        </where>
-    </select>
-    <select id="getUserByUsername" resultMap="userMapper">
-        select
-        <include refid="userColumn"/>
-        from user
-        <where>
-            username = #{username}
-        </where>
-    </select>
 </mapper>

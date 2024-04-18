@@ -1,5 +1,7 @@
 package plus.jqm.hello.common.util;
 
+import lombok.Getter;
+import lombok.Setter;
 import plus.jqm.hello.common.constant.StatusConstants;
 
 import java.io.Serial;
@@ -11,6 +13,8 @@ import java.io.Serializable;
  * @author xjq
  * @date 2024/04/16
  */
+@Setter
+@Getter
 public final class R<T> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -28,30 +32,6 @@ public final class R<T> implements Serializable {
     private T data;
 
     private R() {}
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 
     public static <T> R<T> ok() {
         return build(StatusConstants.OK, MessageSourceUtils.getMessage("ok"), null);
