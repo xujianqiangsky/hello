@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
  * @date 2024/04/16
  */
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName("`user`")
 public class UserDO extends AbstractBaseDO {

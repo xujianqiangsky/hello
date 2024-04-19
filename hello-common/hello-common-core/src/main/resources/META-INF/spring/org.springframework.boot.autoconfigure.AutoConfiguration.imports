@@ -1,0 +1,4 @@
+plus.jqm.hello.common.core.config.JacksonConfiguration
+plus.jqm.hello.common.core.config.MessageSourceConfiguration
+plus.jqm.hello.common.core.config.RedisConfiguration
+plus.jqm.hello.common.core.util.SpringUtils

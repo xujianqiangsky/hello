@@ -3,12 +3,10 @@ package plus.jqm.hello.admin.config;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import plus.jqm.hello.admin.handler.MyBatisPlusMetaObjectHandler;
-import plus.jqm.hello.common.annotation.EnableCommon;
-import plus.jqm.hello.common.constant.DbConstants;
+import plus.jqm.hello.common.core.constant.DbConstants;
 
 /**
  * 应用配置
@@ -16,8 +14,6 @@ import plus.jqm.hello.common.constant.DbConstants;
  * @author xjq
  * @date 2024/04/16
  */
-@EnableCommon
-@EnableCaching
 @Configuration(proxyBeanMethods = false)
 public class AppConfiguration {
     @Bean
