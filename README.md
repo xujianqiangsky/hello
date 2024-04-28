@@ -1,15 +1,13 @@
-<p style="text-align:center">
+<p align="center">
     <img src="https://jqm.plus/logo.svg" height="120" alt="jqm"/>
 </p>
-<p style="text-align:center">
+<p align="center">
     <img src="https://img.shields.io/badge/hello-1.0-success.svg" alt="hello 1.0"/>
     <img src="https://img.shields.io/badge/Spring%20Cloud-2023-blue.svg" alt="Spring Cloud 2023"/>
     <img src="https://img.shields.io/badge/Spring%20Boot-3.2-blue.svg" alt="Spring Boot 3.2"/>
     <img src="https://img.shields.io/badge/Sa--Token-1.37.0-blue.svg" alt="Sa-Token 1.37.0"/>
     <img src="https://img.shields.io/github/license/xujianqiangsky/hello" alt="MIT license"/>
 </p>
-
----
 
 ## 项目介绍
 基于 Spring Cloud 、Spring Boot、 Sa-Token 的微服务通用权限管理系统
