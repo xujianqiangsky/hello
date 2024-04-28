@@ -14,5 +14,8 @@
 
     <modules>
         <module>hello-common-core</module>
+        <module>hello-common-sa-token</module>
+        <module>hello-common-http-service</module>
+        <module>hello-common-api</module>
     </modules>
 </project>

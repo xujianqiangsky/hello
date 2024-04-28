@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: @artifactId@
+  config:
+    import:
+      - nacos:${spring.application.name}.yml
+      - nacos:${spring.application.name}-@profiles.active@.yml
+  cloud:
+    nacos:
+      username: @nacos.username@
+      password: @nacos.password@
+      discovery:
+        server-addr: ${NACOS_HOST:nacos}:${NACOS_PORT:8848}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}

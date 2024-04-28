@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.jqm.hello.system.mapper.SysUserMapper">
+    <resultMap id="sysUserMapper" type="plus.jqm.hello.common.api.domain.SysUserDO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="gender" property="gender"/>
+        <result column="salt" property="salt"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="deleted"/>
+    </resultMap>
+    <resultMap id="sysDeptMapper" type="plus.jqm.hello.common.api.domain.SysDeptDO">
+        <id column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="name" property="name"/>
+        <result column="sort" property="sort"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="deleted"/>
+    </resultMap>
+    <resultMap id="sysRoleMapper" type="plus.jqm.hello.common.api.domain.SysRoleDO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="desc" property="desc"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="deleted"/>
+        <collection property="permissionList" ofType="string">
+            <result column="permission"/>
+        </collection>
+    </resultMap>
+    <resultMap id="sysUserDetailsMapper" type="plus.jqm.hello.common.api.domain.SysUserDetailsDO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="gender" property="gender"/>
+        <result column="salt" property="salt"/>
+        <result column="password" property="password"/>
+        <result column="email" property="email"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_deleted" property="deleted"/>
+        <association property="dept" resultMap="sysDeptMapper" javaType="plus.jqm.hello.common.api.domain.SysDeptDO"
+                     columnPrefix="dept_"/>
+        <collection property="roleList" resultMap="sysRoleMapper" ofType="plus.jqm.hello.common.api.domain.SysRoleDO"
+                    javaType="arraylist"
+                    columnPrefix="role_"/>
+    </resultMap>
+    <sql id="sysUserDetailsColumn">
+        u.id, u.username, u.nickname, u.gender, u.salt,
+        u.password, u.email, u.phone_number, u.avatar, u.status,
+        u.create_by, u.create_time, u.update_by, u.update_time,u.is_deleted,
+        d.id as dept_id, d.parent_id as dept_parent_id,
+        d.name as dept_name, d.sort as dept_sort, d.create_by as dept_create_by,
+        d.create_time as dept_create_time, d.update_by as dept_update_by,
+        d.update_time as dept_update_time, d.is_deleted as dept_is_deleted,
+        m.permission as role_permission,
+        r.id as role_id, r.name as role_name, r.code as role_code, r.desc as role_desc,
+        r.create_by as role_create_by, r.create_time as role_create_time,
+        r.update_by as role_update_by, r.update_time as role_update_time, r.is_deleted as role_is_deleted
+    </sql>
+
+    <select id="getUserDetailsById" resultMap="sysUserDetailsMapper">
+        SELECT
+        <include refid="sysUserDetailsColumn"/>
+        FROM sys_user u
+        LEFT JOIN sys_dept d on d.id = u.dept_id
+        LEFT JOIN sys_user_role ur ON u.id = ur.user_id
+        LEFT JOIN sys_role r ON r.id = ur.role_id
+        LEFT JOIN sys_role_menu rm ON r.id = rm.role_id
+        LEFT JOIN sys_menu m ON m.id = rm.menu_id
+        <where>
+            u.id = #{id};
+        </where>
+    </select>
+    <select id="getUserDetailsByUsername" resultMap="sysUserDetailsMapper">
+        SELECT
+        <include refid="sysUserDetailsColumn"/>
+        FROM sys_user u
+        INNER JOIN sys_dept d on d.id = u.dept_id
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        INNER JOIN sys_role r ON r.id = ur.role_id
+        INNER JOIN sys_role_menu rm ON r.id = rm.role_id
+        INNER JOIN sys_menu m ON m.id = rm.menu_id
+        <where>
+            u.username = #{username};
+        </where>
+    </select>
+</mapper>

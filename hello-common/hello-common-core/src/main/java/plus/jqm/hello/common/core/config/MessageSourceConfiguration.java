@@ -1,6 +1,7 @@
 package plus.jqm.hello.common.core.config;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,6 +18,7 @@ import java.time.Duration;
  * @author xjq
  * @date 2024/04/17
  */
+@ConditionalOnWebApplication
 @AutoConfiguration(before = MessageSourceAutoConfiguration.class)
 public class MessageSourceConfiguration {
     @Bean

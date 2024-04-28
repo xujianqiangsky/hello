@@ -1,14 +1,12 @@
 package plus.jqm.hello.gateway.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.codec.ServerCodecConfigurer;
-import org.springframework.web.reactive.result.view.ViewResolver;
-import plus.jqm.hello.gateway.handler.GlobalExceptionHandler;
+import plus.jqm.hello.gateway.handler.HelloExceptionHandler;
+import plus.jqm.hello.gateway.handler.impl.GlobalExceptionHandler;
 
 /**
  * 应用配置
@@ -16,18 +14,11 @@ import plus.jqm.hello.gateway.handler.GlobalExceptionHandler;
  * @author xjq
  * @date 2024/04/20
  */
+@Slf4j
 @Configuration
 public class AppConfiguration {
     @Bean
-    public GlobalExceptionHandler globalExceptionHandler(ErrorAttributes errorAttributes,
-                                                         WebProperties webProperties,
-                                                         ObjectProvider<ViewResolver> viewResolvers,
-                                                         ServerCodecConfigurer serverCodecConfigurer,
-                                                         ApplicationContext applicationContext) {
-        GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler(errorAttributes, webProperties.getResources(), applicationContext);
-        globalExceptionHandler.setViewResolvers(viewResolvers.orderedStream().toList());
-        globalExceptionHandler.setMessageWriters(serverCodecConfigurer.getWriters());
-        globalExceptionHandler.setMessageReaders(serverCodecConfigurer.getReaders());
-        return globalExceptionHandler;
+    public GlobalExceptionHandler globalExceptionHandler(ObjectProvider<HelloExceptionHandler> helloExceptionHandlers, ObjectMapper objectMapper) {
+        return new GlobalExceptionHandler(objectMapper, helloExceptionHandlers.stream().toList());
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /**
@@ -32,7 +33,12 @@ public class RedisConfiguration {
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory, Jackson2ObjectMapperBuilder builder) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         ObjectMapper objectMapper = objectMapper(builder);
-        template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer(objectMapper));
+        RedisSerializer<String> stringRedisSerializer = RedisSerializer.string();
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
+        template.setKeySerializer(stringRedisSerializer);
+        template.setValueSerializer(genericJackson2JsonRedisSerializer);
+        template.setHashKeySerializer(stringRedisSerializer);
+        template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
@@ -42,7 +48,10 @@ public class RedisConfiguration {
         return cacheManagerBuilder -> {
             ObjectMapper objectMapper = objectMapper(builder);
             RedisCacheConfiguration redisCacheConfiguration = cacheManagerBuilder.cacheDefaults();
-            redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper)));
+            RedisSerializer<String> stringRedisSerializer = RedisSerializer.string();
+            GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
+            redisCacheConfiguration = redisCacheConfiguration.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer));
+            redisCacheConfiguration = redisCacheConfiguration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(genericJackson2JsonRedisSerializer));
             cacheManagerBuilder.cacheDefaults(redisCacheConfiguration);
         };
     }

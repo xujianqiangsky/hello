@@ -6,7 +6,7 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
- * MessageSource 工具类 (需配合 @EnableSpringUtils 使用)
+ * MessageSource 工具类
  *
  * @author xjq
  * @date 2024/04/16
