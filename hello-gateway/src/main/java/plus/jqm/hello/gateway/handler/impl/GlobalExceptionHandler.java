@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBufferFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,6 +41,9 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         if (ex instanceof ResponseStatusException responseStatusException) {
             exchange.getResponse().setStatusCode(responseStatusException.getStatusCode());
         }
+        if (log.isDebugEnabled()) {
+            log.debug("requestURI:{}, errorMessage:{}", exchange.getRequest().getURI(), ex.getMessage(), ex);
+        }
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         Object result = process(exchange, ex);
         return response.writeWith(Mono.fromSupplier(() -> {
@@ -61,7 +63,6 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 return helloExceptionHandler.handle(exchange, throwable);
             }
         }
-        exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
         String message = MessageSourceUtils.getMessage("system.execution.failure");
         return R.build(StatusConstants.SYSTEM_EXECUTION_ERROR, message, null);
     }

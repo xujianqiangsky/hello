@@ -29,7 +29,7 @@ import plus.jqm.hello.system.service.SysUserService;
 public class SysUserController {
     private final SysUserService sysUserService;
 
-    @Operation(summary = "获取用户信息", description = "根据用户名称获取用户信息", parameters = {@Parameter(name = "username", description = "用户名称")})
+    @Operation(summary = "获取用户信息", description = "根据用户 id 获取用户信息", parameters = {@Parameter(name = "id", description = "用户 id")})
     @GetMapping("/{id}")
     public R<SysUserVO> getUserByUsername(@PathVariable long id) {
         SysUserDO userDO = this.sysUserService.getById(id);

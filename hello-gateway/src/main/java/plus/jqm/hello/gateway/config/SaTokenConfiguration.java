@@ -27,7 +27,9 @@ public class SaTokenConfiguration {
         return new SaReactorFilter().addInclude("/**")
                                     .addExclude("/favicon.ico")
                                     .setAuth(obj -> {
-                                        SaRouter.match("/**", AuthConstants.LOGIN_PATH, r -> StpUtil.checkLogin());
+                                        SaRouter.match("/**")
+                                                .notMatch(AuthConstants.LOGIN_PATH)
+                                                .check(r -> StpUtil.checkLogin());
                                     })
                                     .setError(saFilterErrorStrategy);
     }

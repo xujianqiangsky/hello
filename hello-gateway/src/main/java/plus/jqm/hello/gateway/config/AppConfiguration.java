@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import plus.jqm.hello.gateway.handler.HelloExceptionHandler;
 import plus.jqm.hello.gateway.handler.impl.GlobalExceptionHandler;
+import plus.jqm.hello.gateway.handler.impl.NoResourceFoundExceptionHandler;
 
 /**
  * 应用配置
@@ -17,6 +18,11 @@ import plus.jqm.hello.gateway.handler.impl.GlobalExceptionHandler;
 @Slf4j
 @Configuration
 public class AppConfiguration {
+    @Bean
+    public NoResourceFoundExceptionHandler noResourceFoundExceptionHandler() {
+        return new NoResourceFoundExceptionHandler();
+    }
+
     @Bean
     public GlobalExceptionHandler globalExceptionHandler(ObjectProvider<HelloExceptionHandler> helloExceptionHandlers, ObjectMapper objectMapper) {
         return new GlobalExceptionHandler(objectMapper, helloExceptionHandlers.stream().toList());
